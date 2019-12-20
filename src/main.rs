@@ -10,17 +10,20 @@ fn main() {
         let mut input = String::new();
     
         stdin().read_line(&mut input).expect("Could not get input");
+
+        let input = input.trim();
     
-        println!("Entered: {}, Result: {}\n", input.trim(), rpn_calc(&input));
+        println!("Entered: '{}' Result: {}\n", input, rpn_calc(&input));
     }
 }
 
-fn rpn_calc(s: &String) -> f64 {
-    let params_iter = s.as_str().split_whitespace();
+fn rpn_calc(s: &str) -> f64 {
+    let params_iter = s.split_whitespace();
     let mut nums: Vec<f64> = Vec::new();
 
     for param in params_iter {
         
+        // Fix double parse
         if param.parse::<f64>().is_ok() {
             println!("{} is a number", param);
             nums.push(param.parse::<f64>().unwrap())
